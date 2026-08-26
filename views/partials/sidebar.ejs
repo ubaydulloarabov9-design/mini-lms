@@ -1,0 +1,44 @@
+<div class="sidebar d-flex flex-column p-3 text-white">
+  <a href="/" class="d-flex align-items-center mb-4 text-white text-decoration-none">
+    <span class="fs-4 fw-bold">📘 Mini-LMS</span>
+  </a>
+
+  <div class="mb-4 pb-3 border-bottom border-secondary">
+    <div class="fw-semibold"><%= user.full_name %></div>
+    <small class="text-secondary"><%= user.role === 'teacher' ? "O'qituvchi" : 'Talaba' %></small>
+  </div>
+
+  <ul class="nav nav-pills flex-column mb-auto gap-1">
+    <% if (user.role === 'teacher') { %>
+      <li class="nav-item">
+        <a href="/teacher/dashboard" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'dashboard') ? 'active' : '' %>">🏠 Bosh sahifa</a>
+      </li>
+      <li class="nav-item">
+        <a href="/materials" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'materials') ? 'active' : '' %>">📚 Mavzular</a>
+      </li>
+      <li class="nav-item">
+        <a href="/assignments" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'assignments') ? 'active' : '' %>">📝 Topshiriqlar</a>
+      </li>
+      <li class="nav-item">
+        <a href="/teacher/students" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'students') ? 'active' : '' %>">👥 Talabalar</a>
+      </li>
+    <% } else { %>
+      <li class="nav-item">
+        <a href="/student/dashboard" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'dashboard') ? 'active' : '' %>">🏠 Bosh sahifa</a>
+      </li>
+      <li class="nav-item">
+        <a href="/materials" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'materials') ? 'active' : '' %>">📚 Mavzular</a>
+      </li>
+      <li class="nav-item">
+        <a href="/assignments" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'assignments') ? 'active' : '' %>">📝 Topshiriqlar</a>
+      </li>
+      <li class="nav-item">
+        <a href="/student/my-grades" class="nav-link sidebar-link <%= (typeof active !== 'undefined' && active === 'grades') ? 'active' : '' %>">🎓 Baholarim</a>
+      </li>
+    <% } %>
+  </ul>
+
+  <form method="POST" action="/logout" class="mt-3 pt-3 border-top border-secondary">
+    <button class="btn btn-outline-light btn-sm w-100">Chiqish</button>
+  </form>
+</div>

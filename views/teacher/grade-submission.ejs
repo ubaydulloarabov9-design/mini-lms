@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+  <h3><%= assignment.title %> — Talaba javoblari</h3>
+  <table class="table table-striped mt-3">
+    <thead><tr><th>Talaba</th><th>Topshirilgan vaqt</th><th>Fayl</th><th>Baho</th><th>Amal</th></tr></thead>
+    <tbody>
+      <% submissions.forEach(s => { %>
+      <tr>
+        <td><%= s.full_name %></td>
+        <td><%= new Date(s.submitted_at).toLocaleString('uz-UZ') %></td>
+        <td>
+          <% if (s.file_path) { %><a href="<%= s.file_path %>" target="_blank">Yuklab olish</a><% } else { %><em>Matn javob</em><% } %>
+          <% if (s.text_answer) { %><div class="small text-muted mt-1"><%= s.text_answer %></div><% } %>
+        </td>
+        <td><%= s.grade !== null ? s.grade : 'Baholanmagan' %></td>
+        <td>
+          <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#gradeModal<%= s.id %>">Baholash</button>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+<!-- Modallar jadvaldan tashqarida, alohida joylashtirildi (to'g'ri HTML tuzilishi uchun) -->
+<% submissions.forEach(s => { %>
+<div class="modal fade" id="gradeModal<%= s.id %>" tabindex="-1">
+  <div class="modal-dialog">
+    <form method="POST" action="/teacher/submissions/<%= s.id %>/grade" class="modal-content">
+      <div class="modal-header"><h5>Baho qo'yish — <%= s.full_name %></h5></div>
+      <div class="modal-body">
+        <input type="number" name="grade" min="0" max="100" class="form-control mb-2" placeholder="Baho (0-100)" value="<%= s.grade || '' %>" required>
+        <textarea name="feedback" class="form-control" placeholder="Izoh yozing..."><%= s.feedback || '' %></textarea>
+      </div>
+      <div class="modal-footer"><button type="submit" class="btn btn-primary">Saqlash</button></div>
+    </form>
+  </div>
+</div>
+<% }) %>
+
+<%- include('../partials/footer') %>

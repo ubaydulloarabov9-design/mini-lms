@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+  <h2>Talaba paneli — Xush kelibsiz, <%= user.full_name %></h2>
+  <div class="row mt-4 g-3">
+    <div class="col-md-4"><div class="card text-center shadow-sm"><div class="card-body">
+      <h5>Mavjud mavzular</h5><p class="fs-4"><%= materialsCount %></p>
+      <a href="/materials" class="btn btn-primary btn-sm">Ko'rish</a>
+    </div></div></div>
+    <div class="col-md-4"><div class="card text-center shadow-sm border-warning"><div class="card-body">
+      <h5>Bajarilmagan topshiriqlar</h5><p class="fs-4 text-warning"><%= pendingCount %></p>
+      <a href="/assignments" class="btn btn-warning btn-sm">Ko'rish</a>
+    </div></div></div>
+    <div class="col-md-4"><div class="card text-center shadow-sm"><div class="card-body">
+      <h5>Baholarim</h5><p class="fs-4 text-success"><%= gradesCount %></p>
+      <a href="/student/my-grades" class="btn btn-success btn-sm">Ko'rish</a>
+    </div></div></div>
+  </div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<h3 class="mb-4">Sozlamalar</h3>
+
+<% if (error) { %><div class="alert alert-danger"><%= error %></div><% } %>
+<% if (success) { %><div class="alert alert-success"><%= success %></div><% } %>
+
+<div class="content-columns">
+  <div class="content-list">
+    <form method="POST" action="/settings/profile" class="card p-3 mb-4">
+      <h5 class="mb-3">Profil ma'lumotlari</h5>
+      <label class="form-label">Foydalanuvchi nomi</label>
+      <input type="text" name="full_name" class="form-control mb-3" value="<%= profileFullName %>" required>
+
+      <label class="form-label">Login (email)</label>
+      <input type="email" name="email" class="form-control mb-3" value="<%= profileEmail %>" required>
+
+      <button class="btn btn-primary">Saqlash</button>
+    </form>
+
+    <% if (user.role === 'teacher') { %>
+    <form method="POST" action="/settings/subject" class="card p-3">
+      <h5 class="mb-3">Fan sozlamalari</h5>
+      <label class="form-label">Fan nomi</label>
+      <input type="text" name="subject_name" class="form-control mb-3" value="<%= subjectNameValue %>" required>
+      <div class="form-text mb-3">Bu nom barcha foydalanuvchilarga yuqori panelda ko'rinadi.</div>
+      <button class="btn btn-primary">Saqlash</button>
+    </form>
+    <% } %>
+  </div>
+</div>
+<%- include('partials/footer') %>

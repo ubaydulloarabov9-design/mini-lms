@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+  <h2>O'qituvchi paneli — Xush kelibsiz, <%= user.full_name %></h2>
+  <div class="row mt-4 g-3">
+    <div class="col-md-3"><div class="card text-center shadow-sm"><div class="card-body">
+      <h5>Mavzular</h5><p class="fs-4"><%= materialsCount %></p>
+      <a href="/materials" class="btn btn-primary btn-sm">Boshqarish</a>
+    </div></div></div>
+    <div class="col-md-3"><div class="card text-center shadow-sm"><div class="card-body">
+      <h5>Topshiriqlar</h5><p class="fs-4"><%= assignmentsCount %></p>
+      <a href="/assignments" class="btn btn-primary btn-sm">Boshqarish</a>
+    </div></div></div>
+    <div class="col-md-3"><div class="card text-center shadow-sm"><div class="card-body">
+      <h5>Talabalar</h5><p class="fs-4"><%= studentsCount %></p>
+      <a href="/teacher/students" class="btn btn-primary btn-sm">Ro'yxat</a>
+    </div></div></div>
+    <div class="col-md-3"><div class="card text-center shadow-sm border-warning"><div class="card-body">
+      <h5>Tekshirilmagan</h5><p class="fs-4 text-warning"><%= ungradedCount %></p>
+      <a href="/assignments" class="btn btn-warning btn-sm">Baholash</a>
+    </div></div></div>
+  </div>
+<%- include('../partials/footer') %>

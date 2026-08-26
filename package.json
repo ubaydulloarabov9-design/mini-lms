@@ -1,0 +1,21 @@
+{
+  "name": "mini-lms",
+  "version": "1.0.0",
+  "description": "Bitta fan uchun soddalashtirilgan LMS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.10",
+    "dotenv": "^16.4.5",
+    "method-override": "^3.0.0"
+  }
+}

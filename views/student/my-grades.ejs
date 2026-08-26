@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+  <h3>Baholarim</h3>
+  <table class="table table-striped mt-3">
+    <thead><tr><th>Topshiriq</th><th>Topshirilgan vaqt</th><th>Baho</th><th>Izoh</th></tr></thead>
+    <tbody>
+      <% grades.forEach(g => { %>
+      <tr>
+        <td><%= g.assignment_title %></td>
+        <td><%= new Date(g.submitted_at).toLocaleString('uz-UZ') %></td>
+        <td><%= g.grade !== null ? g.grade : 'Kutilmoqda' %></td>
+        <td><%= g.feedback || '-' %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<%- include('../partials/footer') %>

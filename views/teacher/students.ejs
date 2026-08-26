@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+  <h3>Talabalar ro'yxati</h3>
+  <table class="table table-striped mt-3">
+    <thead><tr><th>#</th><th>To'liq ism</th><th>Email</th><th>Ro'yxatdan o'tgan sana</th></tr></thead>
+    <tbody>
+      <% students.forEach((s, i) => { %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= s.full_name %></td>
+        <td><%= s.email %></td>
+        <td><%= new Date(s.created_at).toLocaleDateString('uz-UZ') %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<%- include('../partials/footer') %>

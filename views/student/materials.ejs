@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+  <h3>O'quv mavzulari</h3>
+  <% materials.forEach(m => { %>
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5><%= m.title %></h5>
+      <p><%= m.description %></p>
+      <% if (m.file_path) { %><a href="<%= m.file_path %>" target="_blank" class="btn btn-sm btn-outline-primary">Yuklab olish</a><% } %>
+    </div>
+  </div>
+  <% }) %>
+<%- include('../partials/footer') %>

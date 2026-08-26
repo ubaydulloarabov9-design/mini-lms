@@ -1,0 +1,32 @@
+<%- include('../partials/header') %>
+  <h3>Topshiriqlarim</h3>
+  <% assignments.forEach(a => { %>
+  <div class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h5><%= a.title %></h5>
+        <span class="badge <%= new Date(a.deadline) < new Date() ? 'bg-danger' : 'bg-success' %>">
+          Muddat: <%= new Date(a.deadline).toLocaleString('uz-UZ') %>
+        </span>
+      </div>
+      <p><%= a.description %></p>
+      <% if (a.file_path) { %><a href="<%= a.file_path %>" target="_blank">Topshiriq faylini ko'rish</a><% } %>
+
+      <% if (a.submission) { %>
+        <p class="text-success mt-2">✅ Topshirilgan — Baho:
+          <strong><%= a.submission.grade !== null ? a.submission.grade : 'Kutilmoqda' %></strong>
+        </p>
+        <% if (a.submission.feedback) { %><p><em>Izoh: <%= a.submission.feedback %></em></p><% } %>
+      <% } else if (new Date(a.deadline) < new Date()) { %>
+        <p class="text-danger mt-2">⛔ Muddat tugagan</p>
+      <% } else { %>
+        <form method="POST" action="/student/assignments/<%= a.id %>/submit" enctype="multipart/form-data" class="mt-2">
+          <textarea name="text_answer" class="form-control mb-2" placeholder="Matn javobingiz (ixtiyoriy)"></textarea>
+          <input type="file" name="file" class="form-control mb-2" accept=".pdf,.docx,.zip">
+          <button type="submit" class="btn btn-primary btn-sm">Topshirish</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  <% }) %>
+<%- include('../partials/footer') %>

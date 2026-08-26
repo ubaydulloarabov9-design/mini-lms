@@ -1,0 +1,18 @@
+<div class="topbar d-flex justify-content-between align-items-center px-4 py-2 bg-white border-bottom">
+  <div class="fw-semibold fs-5 text-truncate">📖 <%= subjectName %></div>
+
+  <div class="dropdown">
+    <button class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="fw-semibold"><%= user.full_name %></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+      <li><a class="dropdown-item" href="/settings">⚙️ Sozlamalar</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li class="px-3 py-1">
+        <form method="POST" action="/logout" class="m-0">
+          <button class="btn btn-sm btn-outline-danger w-100">Chiqish</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
