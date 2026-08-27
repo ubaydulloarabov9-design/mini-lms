@@ -21,6 +21,7 @@
         </div>
         <div class="d-flex flex-column gap-2">
           <a href="/teacher/assignments/<%= a.id %>/submissions" class="btn btn-success btn-sm">Javoblarni ko'rish</a>
+          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editAssignmentModal<%= a.id %>">Tahrirlash</button>
           <form method="POST" action="/teacher/assignments/<%= a.id %>/delete" onsubmit="return confirm('O\'chirilsinmi?')">
             <button class="btn btn-danger btn-sm w-100">O'chirish</button>
           </form>
@@ -42,4 +43,34 @@
     </form>
   </div>
 </div>
+
+<!-- Tahrirlash modallari - ro'yxatdan tashqarida, alohida joylashtirildi -->
+<% assignments.forEach(a => { %>
+<div class="modal fade" id="editAssignmentModal<%= a.id %>" tabindex="-1">
+  <div class="modal-dialog">
+    <form method="POST" action="/teacher/assignments/<%= a.id %>/update" enctype="multipart/form-data" class="modal-content">
+      <div class="modal-header"><h5>Topshiriqni tahrirlash</h5></div>
+      <div class="modal-body">
+        <label class="form-label">Topshiriq nomi</label>
+        <input type="text" name="title" class="form-control mb-2" value="<%= a.title %>" required>
+
+        <label class="form-label">Vazifa tavsifi</label>
+        <textarea name="description" class="form-control mb-2" rows="3"><%= a.description %></textarea>
+
+        <label class="form-label">Muddat (deadline)</label>
+        <input type="datetime-local" name="deadline" class="form-control mb-2" value="<%= a.deadline %>" required>
+
+        <label class="form-label">Fayl</label>
+        <% if (a.file_path) { %>
+          <div class="mb-2"><a href="<%= a.file_path %>" target="_blank">📎 Joriy fayl</a></div>
+        <% } %>
+        <input type="file" name="file" class="form-control">
+        <div class="form-text">Yangi fayl tanlasangiz, eskisi almashtiriladi. Bo'sh qoldirsangiz, joriy fayl saqlanib qoladi.</div>
+      </div>
+      <div class="modal-footer"><button type="submit" class="btn btn-primary">Saqlash</button></div>
+    </form>
+  </div>
+</div>
+<% }) %>
+
 <%- include('../partials/footer') %>

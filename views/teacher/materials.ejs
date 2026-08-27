@@ -14,9 +14,12 @@
           <p class="mb-1"><%= m.description %></p>
           <% if (m.file_path) { %><a href="<%= m.file_path %>" target="_blank">📎 Faylni ko'rish</a><% } %>
         </div>
-        <form method="POST" action="/teacher/materials/<%= m.id %>/delete" onsubmit="return confirm('O\'chirilsinmi?')">
-          <button class="btn btn-danger btn-sm">O'chirish</button>
-        </form>
+        <div class="d-flex flex-column gap-2">
+          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMaterialModal<%= m.id %>">Tahrirlash</button>
+          <form method="POST" action="/teacher/materials/<%= m.id %>/delete" onsubmit="return confirm('O\'chirilsinmi?')">
+            <button class="btn btn-danger btn-sm w-100">O'chirish</button>
+          </form>
+        </div>
       </div>
     </div>
     <% }) %>
@@ -32,4 +35,31 @@
     </form>
   </div>
 </div>
+
+<!-- Tahrirlash modallari - ro'yxatdan tashqarida, alohida joylashtirildi -->
+<% materials.forEach(m => { %>
+<div class="modal fade" id="editMaterialModal<%= m.id %>" tabindex="-1">
+  <div class="modal-dialog">
+    <form method="POST" action="/teacher/materials/<%= m.id %>/update" enctype="multipart/form-data" class="modal-content">
+      <div class="modal-header"><h5>Mavzuni tahrirlash</h5></div>
+      <div class="modal-body">
+        <label class="form-label">Mavzu nomi</label>
+        <input type="text" name="title" class="form-control mb-2" value="<%= m.title %>" required>
+
+        <label class="form-label">Tavsif / ma'ruza matni</label>
+        <textarea name="description" class="form-control mb-2" rows="4"><%= m.description %></textarea>
+
+        <label class="form-label">Fayl</label>
+        <% if (m.file_path) { %>
+          <div class="mb-2"><a href="<%= m.file_path %>" target="_blank">📎 Joriy fayl</a></div>
+        <% } %>
+        <input type="file" name="file" class="form-control">
+        <div class="form-text">Yangi fayl tanlasangiz, eskisi almashtiriladi. Bo'sh qoldirsangiz, joriy fayl saqlanib qoladi.</div>
+      </div>
+      <div class="modal-footer"><button type="submit" class="btn btn-primary">Saqlash</button></div>
+    </form>
+  </div>
+</div>
+<% }) %>
+
 <%- include('../partials/footer') %>

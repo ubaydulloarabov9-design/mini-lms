@@ -19,10 +19,21 @@ async function createMaterial(req, res) {
 async function updateMaterial(req, res) {
   const { id } = req.params;
   const { title, description } = req.body;
-  await db.run(
-    `UPDATE materials SET title = ?, description = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
-    [title, description, id]
-  );
+
+  if (req.file) {
+    // Yangi fayl yuklangan bo'lsa, faylni ham yangilaymiz
+    const file_path = `/uploads/materials/${req.file.filename}`;
+    await db.run(
+      `UPDATE materials SET title = ?, description = ?, file_path = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+      [title, description, file_path, id]
+    );
+  } else {
+    // Fayl yuklanmagan bo'lsa, eski faylni saqlab qolamiz
+    await db.run(
+      `UPDATE materials SET title = ?, description = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+      [title, description, id]
+    );
+  }
   res.redirect('/materials');
 }
 

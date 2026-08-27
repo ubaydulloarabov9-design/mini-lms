@@ -29,10 +29,19 @@ async function createAssignment(req, res) {
 async function updateAssignment(req, res) {
   const { id } = req.params;
   const { title, description, deadline } = req.body;
-  await db.run(
-    `UPDATE assignments SET title = ?, description = ?, deadline = ? WHERE id = ?`,
-    [title, description, deadline, id]
-  );
+
+  if (req.file) {
+    const file_path = `/uploads/assignments/${req.file.filename}`;
+    await db.run(
+      `UPDATE assignments SET title = ?, description = ?, deadline = ?, file_path = ? WHERE id = ?`,
+      [title, description, deadline, file_path, id]
+    );
+  } else {
+    await db.run(
+      `UPDATE assignments SET title = ?, description = ?, deadline = ? WHERE id = ?`,
+      [title, description, deadline, id]
+    );
+  }
   res.redirect('/assignments');
 }
 
