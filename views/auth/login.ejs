@@ -4,7 +4,10 @@
   <% if (error) { %><div class="alert alert-danger"><%= error %></div><% } %>
   <form method="POST" action="/login">
     <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
-    <input type="password" name="password" class="form-control mb-3" placeholder="Parol" required>
+    <div class="position-relative mb-3">
+      <input type="password" name="password" id="login_password" class="form-control pe-5" placeholder="Parol" required>
+      <button type="button" class="password-toggle-btn btn btn-sm position-absolute top-50 end-0 translate-middle-y me-1 p-1 border-0 bg-transparent text-secondary" onclick="togglePassword('login_password', this)" tabindex="-1"></button>
+    </div>
     <button class="btn btn-primary w-100">Kirish</button>
   </form>
   <p class="mt-3">Akkountingiz yo'qmi? <a href="/register">Ro'yxatdan o'tish</a></p>
