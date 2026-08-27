@@ -4,10 +4,14 @@ const fs = require('fs');
 
 const ALLOWED_EXT = ['.pdf', '.docx', '.zip'];
 
+// UPLOADS_DIR muhit o'zgaruvchisi orqali sozlanadi (Render'dagi doimiy disk uchun,
+// masalan /var/data/uploads). Agar berilmasa, loyiha ichidagi 'uploads' papkasi ishlatiladi.
+const UPLOADS_ROOT = process.env.UPLOADS_DIR || path.join(__dirname, '..', 'uploads');
+
 function makeStorage(subfolder) {
   return multer.diskStorage({
     destination: (req, file, cb) => {
-      const dir = path.join(__dirname, '..', 'uploads', subfolder);
+      const dir = path.join(UPLOADS_ROOT, subfolder);
       fs.mkdirSync(dir, { recursive: true });
       cb(null, dir);
     },

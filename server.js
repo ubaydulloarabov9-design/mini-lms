@@ -26,7 +26,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// UPLOADS_DIR muhit o'zgaruvchisi orqali sozlanadi (Render'dagi doimiy disk uchun)
+const UPLOADS_ROOT = process.env.UPLOADS_DIR || path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(UPLOADS_ROOT));
 app.use(attachSettings);
 
 // Bosh sahifa -> rolga qarab dashboardga yo'naltirish
