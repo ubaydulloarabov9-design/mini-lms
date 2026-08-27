@@ -12,6 +12,7 @@ const assignmentRoutes = require('./routes/assignmentRoutes');
 const submissionRoutes = require('./routes/submissionRoutes');
 const userRoutes = require('./routes/userRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
+const setupRoutes = require('./routes/setupRoutes');
 const { isLoggedIn } = require('./middlewares/authMiddleware');
 const { attachSettings } = require('./middlewares/settingsMiddleware');
 
@@ -39,6 +40,7 @@ app.use('/', materialRoutes);
 app.use('/', assignmentRoutes);
 app.use('/', submissionRoutes);
 app.use('/', settingsRoutes);
+app.use('/', setupRoutes);
 
 // 404
 app.use((req, res) => res.status(404).send('Sahifa topilmadi'));
