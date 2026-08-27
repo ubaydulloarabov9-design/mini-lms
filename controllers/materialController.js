@@ -1,7 +1,7 @@
 const { db } = require('../config/db');
 
 async function listMaterials(req, res) {
-  const materials = await db.all('SELECT * FROM materials ORDER BY created_at DESC');
+  const materials = await db.all('SELECT * FROM materials ORDER BY id ASC');
   const view = req.user.role === 'teacher' ? 'teacher/materials' : 'student/materials';
   res.render(view, { materials, active: 'materials' });
 }

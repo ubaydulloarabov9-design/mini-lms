@@ -2,12 +2,12 @@ const { db } = require('../config/db');
 
 async function listAssignments(req, res) {
   if (req.user.role === 'teacher') {
-    const assignments = await db.all('SELECT * FROM assignments ORDER BY deadline ASC');
+    const assignments = await db.all('SELECT * FROM assignments ORDER BY id ASC');
     return res.render('teacher/assignments', { assignments, active: 'assignments' });
   }
 
   // Talaba uchun - har bir topshiriqqa o'zining submission holatini qo'shamiz
-  const assignments = await db.all('SELECT * FROM assignments ORDER BY deadline ASC');
+  const assignments = await db.all('SELECT * FROM assignments ORDER BY id ASC');
   const submissions = await db.all('SELECT * FROM submissions WHERE student_id = ?', [req.user.id]);
   const merged = assignments.map(a => ({
     ...a,

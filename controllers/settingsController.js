@@ -4,6 +4,14 @@ const { db } = require('../config/db');
 async function renderSettings(req, res, extra = {}) {
   const settings = await db.get('SELECT subject_name FROM settings WHERE id = 1');
   const currentUser = await db.get('SELECT full_name, email FROM users WHERE id = ?', [req.user.id]);
+
+  // Agar cookie'dagi foydalanuvchi bazada topilmasa (masalan, eski/yaroqsiz sessiya) -
+  // xato bilan qulash o'rniga xavfsiz tarzda login sahifasiga qaytaramiz
+  if (!currentUser) {
+    res.clearCookie('token');
+    return res.redirect('/login');
+  }
+
   res.render('settings', {
     active: 'settings',
     subjectNameValue: settings.subject_name,
